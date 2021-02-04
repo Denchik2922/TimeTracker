@@ -16,6 +16,7 @@ namespace TimeTracker.Pages
 		{
 			InitializeComponent();
 			NavigationPage.SetHasNavigationBar(this, false);
+			BackgroundColor = Color.FromHex("#E5E5E5");
 		}
 	}
 }

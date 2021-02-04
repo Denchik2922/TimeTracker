@@ -47,12 +47,12 @@
             <StackLayout Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" IsVisible="True" Padding="0,35,0,0">
                 <StackLayout VerticalOptions="Start" Spacing="0">
                     <Label Text="00:00:00" TextColor="White" FontSize="15" Style="{StaticResource SecondLabelStyle}" />
-                    <Label Text="пауза" TextColor="#9DCBE4"  Style="{StaticResource SmallLabelStyle}" />
+                    <Label Text="пауза" TextColor="#9DCBE4" FontSize="13"  Style="{StaticResource SecondLabelStyle}" />
                 </StackLayout>
 
                 <StackLayout VerticalOptions="EndAndExpand" Spacing="0">
-                    <Label Text="123.32 ₴" TextColor="#FFCD24" Style="{StaticResource SecondLabelStyle}" />
-                    <Label Text="заработано" TextColor="#FFCD24" Style="{StaticResource SmallLabelStyle}" />
+                    <Label Text="123.32 ₴" TextColor="#FFCD24" FontSize="18" Style="{StaticResource SecondLabelStyle}" />
+                    <Label Text="заработано" TextColor="#FFCD24" FontSize="13" Style="{StaticResource SecondLabelStyle}" />
                 </StackLayout>
 
             </StackLayout>
@@ -74,8 +74,8 @@
                 </StackLayout>
 
                 <StackLayout Spacing="0" HorizontalOptions="Center">
-                    <Label Text="{Binding HourCost, StringFormat='{0} ₴'}" TextColor="#2AABE4" Style="{StaticResource SecondLabelStyle}" />
-                    <Label Text="стоимость часа" TextColor="#2AABE4" Style="{StaticResource SmallLabelStyle}" />
+                    <Label Text="{Binding HourCost, StringFormat='{0} ₴'}" TextColor="#2AABE4" FontSize="18" Style="{StaticResource SecondLabelStyle}" />
+                    <Label Text="стоимость часа" TextColor="#2AABE4" FontSize="13" Style="{StaticResource SecondLabelStyle}" />
                 </StackLayout>
 
             </StackLayout>

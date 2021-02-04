@@ -3,17 +3,9 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimeTracker.App">
     <Application.Resources>
-        <Style x:Key="SmallLabelStyle" TargetType="Label">
-            <Setter Property="VerticalOptions" Value="End" />
-            <Setter Property="HorizontalOptions" Value="Center" />
-            <Setter Property="FontSize" Value="13" />
-            <Setter Property="FontFamily" Value="Roboto-Regular.ttf#Roboto-Regular" />
-        </Style>
-
         <Style x:Key="SecondLabelStyle" TargetType="Label">
             <Setter Property="VerticalOptions" Value="End" />
             <Setter Property="HorizontalOptions" Value="Center" />
-            <Setter Property="FontSize" Value="18" />
             <Setter Property="FontFamily" Value="Roboto-Regular.ttf#Roboto-Regular" />
         </Style>
 
@@ -43,5 +35,7 @@
             <Setter Property="ThumbColor" Value="#2AABE4" />
 
         </Style>
+        
+        
     </Application.Resources>
 </Application>
