@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30804.86
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTracker.Android", "TimeTracker\TimeTracker.Android\TimeTracker.Android.csproj", "{63EA36AA-3875-48A2-A2DC-48440E189053}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimeTracker", "TimeTracker\TimeTracker\TimeTracker.csproj", "{0133CE13-ECA4-4F85-89BE-3B859FEFE929}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{63EA36AA-3875-48A2-A2DC-48440E189053}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63EA36AA-3875-48A2-A2DC-48440E189053}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63EA36AA-3875-48A2-A2DC-48440E189053}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{63EA36AA-3875-48A2-A2DC-48440E189053}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63EA36AA-3875-48A2-A2DC-48440E189053}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63EA36AA-3875-48A2-A2DC-48440E189053}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{0133CE13-ECA4-4F85-89BE-3B859FEFE929}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0133CE13-ECA4-4F85-89BE-3B859FEFE929}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0133CE13-ECA4-4F85-89BE-3B859FEFE929}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{0133CE13-ECA4-4F85-89BE-3B859FEFE929}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0133CE13-ECA4-4F85-89BE-3B859FEFE929}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0133CE13-ECA4-4F85-89BE-3B859FEFE929}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {21C0922F-4B59-480A-A73B-FF49D5AD6AFA}
+	EndGlobalSection
+EndGlobal
