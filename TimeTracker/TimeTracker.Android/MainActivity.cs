@@ -17,7 +17,7 @@ namespace TimeTracker.Droid
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
-            Xamarin.Forms.Forms.SetFlags(new string[] { "SwipeView_Experimental", "Shapes_Experimental", "AppTheme_Experimental", "Brush_Experimental" });
+            Xamarin.Forms.Forms.SetFlags(new string[] { "Shapes_Experimental" });
             TabLayoutResource = Resource.Layout.Tabbar;
             ToolbarResource = Resource.Layout.Toolbar;
 

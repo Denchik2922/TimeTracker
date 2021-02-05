@@ -2,49 +2,159 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="TimeTracker.Pages.CalendarPage"
-             xmlns:local="clr-namespace:TimeTracker.ExtraClass">
+             xmlns:local="clr-namespace:TimeTracker.ExtraClass" xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView">
 
     
     <ContentPage.Content>
-        <StackLayout>
-            <Frame HasShadow="True">
-                <Frame.Background>
-                    <LinearGradientBrush StartPoint="1,1"
-                             EndPoint="1,1">
-                        <GradientStop Color="#006FB8"
-                          Offset="0.1"/>
-                        <GradientStop Color="#2AABE4"
-                          Offset="1.0"/>
-                    </LinearGradientBrush>
-                </Frame.Background>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*"/>
 
-                <StackLayout Orientation="Horizontal" Spacing="12" HorizontalOptions="Center">
-                    <ImageButton Source="PrevBtn.png" BackgroundColor="Transparent"/>
-                    <Label Text="Декабрь 2021" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
-                    <ImageButton Source="NextBtn.png" BackgroundColor="Transparent"/>
-                </StackLayout>
-            </Frame>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="65" />
+                <RowDefinition Height="*" />
+                <RowDefinition Height="140" />
+            </Grid.RowDefinitions>
 
-            <AbsoluteLayout>
-                <BoxView Color="LightBlue" AbsoluteLayout.LayoutBounds="70, 0, 20, 20" />
-            </AbsoluteLayout>
 
-            <StackLayout HeightRequest="70" WidthRequest="40">
-                <local:CardView HasShadow="True" BackgroundColor="#FFFFFF" >
-                    
-                    
-                    <StackLayout Orientation="Horizontal" Spacing="0">
-                        
-                        <Label Text="Декабрь 2022" />
-                        
-                    </StackLayout>
-                </local:CardView>
+            <StackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="0">
+                <yummy:PancakeView BackgroundColor="Azure" HeightRequest="200" Shadow="{yummy:ShadowMarkup Color='Red', Offset='10,10'}" >
+
+                    <yummy:PancakeView BackgroundGradientStartPoint="0,0" BackgroundGradientEndPoint="1,1" CornerRadius="0">
+                        <yummy:PancakeView.BackgroundGradientStops>
+                            <yummy:GradientStopCollection>
+                                <yummy:GradientStop Color="#006FB8" Offset="0"/>
+                                <yummy:GradientStop Color="#2AABE4" Offset="1"/>
+                            </yummy:GradientStopCollection>
+                        </yummy:PancakeView.BackgroundGradientStops>
+
+                        <StackLayout Orientation="Horizontal" Spacing="12" HorizontalOptions="Center">
+                            <ImageButton Source="PrevBtn.png" BackgroundColor="Transparent"/>
+                            <Label Text="Декабрь 2021" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
+                            <ImageButton Source="NextBtn.png" BackgroundColor="Transparent"/>
+                        </StackLayout>
+                    </yummy:PancakeView>
+
+                </yummy:PancakeView>
             </StackLayout>
 
-        </StackLayout>
 
-        
 
-       
+            <ListView
+                      x:Name ="WorkDaysList"
+                      HasUnevenRows="True"
+                     
+                      Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="2"  
+                      ItemsSource="{Binding MonthWorkDays}"
+                      ItemTapped="Select_Work_Day"
+                      
+                     >
+
+                
+
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        
+                        <ViewCell Height="55" >
+                            
+                            <yummy:PancakeView BackgroundColor="White" HeightRequest="200" Shadow="{yummy:ShadowMarkup Color='Red', Offset='10,10'}" Margin="10,5,10,5" >
+
+
+
+
+                                <StackLayout Orientation="Horizontal" Spacing="10">
+                                    <BoxView Grid.Column="0" IsEnabled="{Binding IsSelected}" WidthRequest="5" HorizontalOptions="Start">
+                                        <BoxView.Triggers>
+                                            <Trigger TargetType="BoxView" Property="IsEnabled" Value="false">
+                                                <Setter Property="BackgroundColor" Value="#006FB8" />
+
+                                            </Trigger>
+                                            <Trigger TargetType="BoxView" Property="IsEnabled" Value="true">
+                                                <Setter Property="BackgroundColor" Value="#FFCD24" />
+
+                                            </Trigger>
+                                        </BoxView.Triggers>
+
+                                    </BoxView>
+                                    <Label  Style="{StaticResource ListItemStyle}"  Text="{Binding Date, StringFormat='{0:d MMM}'}" />
+                                    <Label  Style="{StaticResource ListItemStyle}" Text="{Binding Total, StringFormat='{0:hh\\:mm\\:ss}'}" />
+                                    <Label Style="{StaticResource ListItemStyle}" Text="{Binding HourCost, StringFormat='{0:F2} ₴'}" />
+
+                                    <ImageButton  
+                                                  
+                                                  CommandParameter="asdsada"
+                                                  
+                                                   Clicked="EditDay" IsVisible="{Binding IsSelected}" HorizontalOptions="CenterAndExpand" BackgroundColor="Transparent" Source="edit_work_day.png">
+                                    
+                                    </ImageButton>
+
+
+
+                                </StackLayout>
+                                   
+
+                            </yummy:PancakeView>
+                            
+
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <yummy:PancakeView Grid.Column="0" Grid.Row="2" BackgroundColor="Azure" HeightRequest="200" Margin="10,10,4,20" CornerRadius="10" BackgroundGradientStartPoint="0,0" BackgroundGradientEndPoint="1,1" >
+                <yummy:PancakeView.Shadow>
+                    <yummy:DropShadow Color="Black" Offset="10,10" />
+                </yummy:PancakeView.Shadow>
+                
+                    <yummy:PancakeView.BackgroundGradientStops>
+                        <yummy:GradientStopCollection>
+                            <yummy:GradientStop Color="#006FB8" Offset="0"/>
+                            <yummy:GradientStop Color="#2AABE4" Offset="1"/>
+                        </yummy:GradientStopCollection>
+                    </yummy:PancakeView.BackgroundGradientStops>
+
+                    <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                    <Image HeightRequest="30" WidthRequest="30" Source="clock_total.png" BackgroundColor="Transparent"/>
+                    <StackLayout Spacing="0">
+                        <Label Text="43:54:21" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
+                        <Label Text="общее время" TextColor="White" FontSize="13" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
+                    </StackLayout>
+                        
+                    </StackLayout>
+                </yummy:PancakeView>
+
+            
+
+            <yummy:PancakeView Grid.Column="1" Grid.Row="2"  BackgroundColor="Azure" HeightRequest="100" Margin="4,10,10,20" CornerRadius="10" >
+                <yummy:PancakeView.Shadow>
+                    <yummy:DropShadow Color="Black" Offset="10,10" />
+                </yummy:PancakeView.Shadow>
+                
+                <yummy:PancakeView BackgroundGradientStartPoint="0,0" BackgroundGradientEndPoint="1,1" CornerRadius="0">
+                    <yummy:PancakeView.BackgroundGradientStops>
+                        <yummy:GradientStopCollection>
+                            <yummy:GradientStop Color="#006FB8" Offset="0"/>
+                            <yummy:GradientStop Color="#2AABE4" Offset="1"/>
+                        </yummy:GradientStopCollection>
+                    </yummy:PancakeView.BackgroundGradientStops>
+
+                    <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
+                        <Image HeightRequest="30" WidthRequest="30" Source="coins_total.png" BackgroundColor="Transparent"/>
+                        <StackLayout Spacing="0">
+                            <Label Text="421.21 ₴" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
+                            <Label Text="заработано" TextColor="White" FontSize="13" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
+                            </StackLayout>
+                    </StackLayout>
+                </yummy:PancakeView>
+
+            </yummy:PancakeView>
+
+
+
+            <ImageButton x:Name="btn_add" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Clicked="Add_Work_Day" Source="add_work_day.png" Style="{StaticResource AddWorkDayStyle}"/>
+        </Grid>
+
     </ContentPage.Content>
 </ContentPage>
