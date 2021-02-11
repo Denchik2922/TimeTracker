@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using TimeTracker.Models;
 using Xamarin.Forms;
+using Xamarin.Forms.Shapes;
 using Xamarin.Forms.Xaml;
 
 namespace TimeTracker.Pages
@@ -118,9 +119,17 @@ namespace TimeTracker.Pages
 
 		
 
-		private void EditDay(object sender, EventArgs e)
-		{
-			string dayId = (sender as ImageButton).CommandParameter.ToString();
+		private async void EditDay(object sender, EventArgs e)
+		{	
+			var pathSender = sender as Path;
+
+			if (pathSender.GestureRecognizers.Count > 0)
+			{
+				var gesture = (TapGestureRecognizer)pathSender.GestureRecognizers[0];
+				int dayId = (int)gesture.CommandParameter;
+				WorkDay day = worksDays.SingleOrDefault(w => w.id == dayId);
+				await Navigation.PushAsync(new WorkDayPage(day));
+			}
 		}
 	}
 }

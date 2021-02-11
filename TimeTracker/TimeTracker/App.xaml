@@ -39,11 +39,11 @@
 
         <Style x:Key="AddWorkDayStyle" TargetType="ImageButton">
 
-            <Setter Property="HeightRequest" Value="60"/>
-            <Setter Property="WidthRequest" Value="60"/>
+            <Setter Property="Aspect" Value="AspectFit"/>
+           
             <Setter Property="HorizontalOptions" Value="End"/>
             <Setter Property="VerticalOptions" Value="Start"/>
-            <Setter Property="Margin" Value="0,30,20,0"/>
+            <Setter Property="Margin" Value="0,20,30,0"/>
             <Setter Property="BackgroundColor" Value="Transparent"/>
 
 
@@ -61,7 +61,75 @@
 
         </Style>
 
-       
+
+        <Style x:Key="ClockPath" TargetType="Path">
+
+            <Setter Property="Data" Value="M15 0.46875C6.97266 0.46875 0.46875 6.97266
+                    0.46875 15C0.46875 23.0273 6.97266 29.5312 15 29.5312C23.0273 29.5312
+                    29.5312 23.0273 29.5312 15C29.5312 6.97266 23.0273 0.46875 15 0.46875ZM15
+                    26.7188C8.52539 26.7188 3.28125 21.4746 3.28125 15C3.28125 8.52539 8.52539
+                    3.28125 15 3.28125C21.4746 3.28125 26.7188 8.52539 26.7188 15C26.7188 21.4746
+                    21.4746 26.7188 15 26.7188ZM18.6211 20.6016L13.6465 16.9863C13.4648 16.8516 13.3594
+                    16.6406 13.3594 16.418V6.79688C13.3594 6.41016 13.6758 6.09375 14.0625
+                    6.09375H15.9375C16.3242 6.09375 16.6406 6.41016 16.6406 6.79688V15.0996L20.5547
+                    17.9473C20.8711 18.1758 20.9355 18.6152 20.707 18.9316L19.6055 20.4492C19.377 
+                    20.7598 18.9375 20.8301 18.6211 20.6016Z"/>
+            <Setter Property="Fill" Value="White"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+            
+        </Style>
+        
+        <Style x:Key="MoneyPath" TargetType="Path">
+
+            <Setter Property="Data" Value="M0 23.748V26.25C0 28.3184 5.03906 30 11.25 30C17.4609
+                    30 22.5 28.3184 22.5 26.25V23.748C20.0801 25.4531 15.6562 26.25 11.25 26.25C6.84375
+                    26.25 2.41992 25.4531 0 23.748ZM18.75 7.5C24.9609 7.5 30 5.81836 30 3.75C30 1.68164
+                    24.9609 0 18.75 0C12.5391 0 7.5 1.68164 7.5 3.75C7.5 5.81836 12.5391 7.5 18.75 7.5ZM0
+                    17.6016V20.625C0 22.6934 5.03906 24.375 11.25 24.375C17.4609 24.375 22.5 22.6934 22.5
+                    20.625V17.6016C20.0801 19.5938 15.6504 20.625 11.25 20.625C6.84961 20.625 2.41992 19.5938
+                    0 17.6016ZM24.375 18.2461C27.7324 17.5957 30 16.3887 30 15V12.498C28.6406 13.459 26.6426 14.1152
+                    24.375 14.5195V18.2461ZM11.25 9.375C5.03906 9.375 0 11.4727 0 14.0625C0 16.6523 5.03906 18.75 11.25
+                    18.75C17.4609 18.75 22.5 16.6523 22.5 14.0625C22.5 11.4727 17.4609 9.375 11.25 9.375ZM24.0996 12.6738C27.6152
+                    12.041 30 10.7988 30 9.375V6.87305C27.9199 8.34375 24.3457 9.13477 20.584 9.32227C22.3125 10.1602 23.584 11.2852
+                    24.0996 12.6738Z"/>
+            <Setter Property="Fill" Value="#FFCD24"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+
+        </Style>
+
+        <Style x:Key="BlockTimeStyle" TargetType="StackLayout">
+            <Setter Property="Orientation" Value="Horizontal"/>
+            
+            <Setter Property="Spacing" Value="5"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="HorizontalOptions" Value="Center"/>
+        </Style>
+
+        <Style x:Key="Angle_left" TargetType="Path">
+
+            <Setter Property="Data" Value="M1.73362 12.1368L9.17112 5.23057C9.68518 
+                    4.75322 10.5164 4.75322 11.025 5.23057L12.261 6.37822C12.775 6.85557
+                    12.775 7.62744 12.261 8.09971L6.99456 13.0001L12.2664 17.8954C12.7805
+                    18.3728 12.7805 19.1446 12.2664 19.6169L11.0305 20.7696C10.5164 21.247
+                    9.68518 21.247 9.17659 20.7696L1.73909 13.8634C1.21956 13.386 1.21956 12.6142 1.73362 12.1368Z"/>
+            <Setter Property="Fill" Value="#2AABE4"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Aspect" Value="Fill"/>
+
+        </Style>
+
+        <Style x:Key="Angle_right" TargetType="Path">
+
+            <Setter Property="Data" Value="M12.2664 13.8632L4.82888 20.7694C4.31482 21.2468 3.48357
+                    21.2468 2.97497 20.7694L1.73904 19.6218C1.22497 19.1444 1.22497 18.3726 1.73904
+                    17.9003L7.00544 12.9999L1.73357 8.10459C1.2195 7.62725 1.2195 6.85537 1.73357 6.38311L2.9695
+                    5.23037C3.48357 4.75303 4.31482 4.75303 4.82341 5.23037L12.2609 12.1366C12.7804 12.614 12.7804 13.3858 12.2664 13.8632Z"/>
+            <Setter Property="Fill" Value="#2AABE4"/>
+            <Setter Property="VerticalOptions" Value="Center"/>
+            <Setter Property="Aspect" Value="Fill"/>
+            
+
+        </Style>
 
 
     </Application.Resources>

@@ -67,9 +67,21 @@
 
             <StackLayout  Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4">
                 <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="0" IsVisible="True">
-                    <ImageButton Clicked="DecreaseValue" BackgroundColor="Transparent" Source="left_angle"/>
+                    <Path Style="{StaticResource Angle_left}">
+                        <Path.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="DecreaseValue"/>
+                        </Path.GestureRecognizers>
+                    </Path>
+                    
+                   
                     <Slider x:Name="Slid" Value="100" Style="{StaticResource SliderStyle}" ValueChanged="ChangeHourCost" />
-                    <ImageButton Clicked="IncreaseValue" BackgroundColor="Transparent" Source="right_angle"/>
+
+                    <Path Style="{StaticResource Angle_right}">
+                        <Path.GestureRecognizers>
+                            <TapGestureRecognizer Tapped="IncreaseValue"/>
+                        </Path.GestureRecognizers>
+                    </Path>
+                  
                     
                 </StackLayout>
 
