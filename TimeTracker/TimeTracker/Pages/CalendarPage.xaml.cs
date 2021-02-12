@@ -14,7 +14,6 @@ namespace TimeTracker.Pages
 	public partial class CalendarPage : ContentPage
 	{
 
-
 		/// <summary>
 		/// Рабочии дни.
 		/// </summary>
@@ -56,26 +55,12 @@ namespace TimeTracker.Pages
 
 		private void Add_Work_Day(object sender, EventArgs e)
 		{
-			BtnAnimation("add");
+			
 		}
 
 		private void Delete_Work_Day(object sender, EventArgs e)
 		{
-			BtnAnimation("delete");
-		}
-
-		/// <summary>
-		/// Анимация для кнопки назад.
-		/// </summary>
-		private async void BtnAnimation(string name)
-		{
-			await Task.Delay(100);
-			btn_add.Source = $"tap_{name}_work_day.png";
-
-			await Task.Delay(150);
-
-
-			btn_add.Source = $"{name}_work_day.png";
+			
 		}
 
 		private void Select_Work_Day(object sender, ItemTappedEventArgs e)
@@ -86,29 +71,18 @@ namespace TimeTracker.Pages
 
 			int count = worksDays.Count(w => w.IsSelected);
 
-			if(count <= 0)
+			if (count <= 0)
 			{
-				btn_add.Source = "add_work_day.png";
-
-				
-				btn_add.Clicked -= Delete_Work_Day;
-				btn_add.Clicked += Add_Work_Day;
-				
+				btn_add.IsVisible = true;
+				btn_delete.IsVisible = false;
 			}
 			else
 			{
-				btn_add.Source = "delete_work_day.png";
-				
-
-				btn_add.Clicked -= Delete_Work_Day;
-				btn_add.Clicked += Delete_Work_Day;
-				btn_add.Clicked -= Add_Work_Day;
+				btn_add.IsVisible = false;
+				btn_delete.IsVisible = true;
 			}
 
 			MonthWorkDays = worksDays.Select(w => w).ToList();
-
-			
-
 		}
 
 		protected override void OnAppearing()

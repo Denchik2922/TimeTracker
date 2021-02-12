@@ -1,34 +1,88 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using TimeTracker.ExtraClass;
 
 namespace TimeTracker.Models
 {
 	[Serializable]
 	public class WorkDay
 	{
-		public int id { get; }
+		#region Свойства
+		/// <summary>
+		/// ID.
+		/// </summary>
+		public int Id { get; }
 
+		/// <summary>
+		/// Элемент выбран.
+		/// </summary>
 		public bool IsSelected { get; set; }
 
+
 		/// <summary>
-		/// Дата
+		/// Статус дня.
+		/// </summary>
+		public Status StatusDay { get; set; } = Status.Stop;
+
+
+		/// <summary>
+		/// Дата.
 		/// </summary>
 		public DateTime Date { get; set; }
+		
 
 		/// <summary>
-		/// Начало работы
+		/// Начало работы.
 		/// </summary>
-		public DateTime Start { get; set; }
+		private DateTime _start;
+		public DateTime Start
+		{ 
+			get => _start;
+			set
+			{
+				if(End == default(DateTime))
+				{
+					_start = value;
+				}
+				else if(value < End)
+				{
+					_start = value;
+				}
+				else
+				{
+					throw new ArgumentException("Start time must be less than a End time", nameof(_start));
+				}
+			}
+		}
 
 
 		/// <summary>
-		/// Конец работы
+		/// Конец работы.
 		/// </summary>
-		public DateTime End { get; set; }
+		private DateTime _end;
+		public DateTime End 
+		{ 
+			get => _end;
+			set
+			{
+				if (Start == default(DateTime))
+				{
+					_end = value;
+				}
+				else if (value > Start)
+				{
+					_end = value;
+				}
+				else
+				{
+					throw new ArgumentException("End time must be less than a Start time", nameof(_end));
+				}
+			}
+		}
 
 		/// <summary>
-		/// Всего наработано
+		/// Всего наработано.
 		/// </summary>
 		public TimeSpan Total
 		{
@@ -37,17 +91,56 @@ namespace TimeTracker.Models
 		}
 
 		/// <summary>
-		/// Начало отдыха
+		/// Начало отдыха.
 		/// </summary>
-		public DateTime StartRelax { get; set; }
+		private DateTime _startRelax;
+		public DateTime StartRelax 
+		{
+			get => _startRelax;
+			set 
+			{
+				if (EndRelax == default(DateTime))
+				{
+					_startRelax = value;
+				}
+				else if (value < EndRelax)
+				{
+					_startRelax = value;
+				}
+				else
+				{
+					throw new ArgumentException("Start time must be less than a End time", nameof(_startRelax));
+				}
+			}
+		}
+
 
 		/// <summary>
-		/// Конец отдыха
+		/// Конец отдыха.
 		/// </summary>
-		public DateTime EndRelax { get; set; }
+		private DateTime _endRelax;
+		public DateTime EndRelax
+		{
+			get => _endRelax;
+			set
+			{
+				if (EndRelax == default(DateTime))
+				{
+					_endRelax = value;
+				}
+				else if (value > StartRelax)
+				{
+					_endRelax = value;
+				}
+				else
+				{
+					throw new ArgumentException("End time must be less than a Start time", nameof(_endRelax));
+				}
+			}
+		}
 
 		/// <summary>
-		/// Всего отдиха
+		/// Всего отдиха.
 		/// </summary>
 		public TimeSpan TotalRelax
 		{
@@ -56,35 +149,43 @@ namespace TimeTracker.Models
 		}
 
 		/// <summary>
-		/// Стоимость часа
+		/// Стоимость часа.
 		/// </summary>
 		public decimal MinuteCost { get => HourCost / 60; }
 
 		/// <summary>
-		/// Стоимость часа
+		/// Стоимость часа.
 		/// </summary>
-		public decimal HourCost { get; set; }
+		public decimal _hourCost;
+		public decimal HourCost
+		{
+			get => _hourCost;
+			set
+			{
+				if (value < 1)
+				{
+					throw new ArgumentException("The cost of an hour cannot be less than one", nameof(_hourCost));
+				}
+			} 
+		}
 
 		/// <summary>
-		/// Всего заработано
+		/// Всего заработано.
 		/// </summary>
 		public decimal Earning { get { return MinuteCost * (int)Total.TotalMinutes; } }
 
+		#endregion
 
-		public WorkDay(DateTime start, decimal hourCost)
+		public WorkDay()
 		{
-			if (hourCost < 1)
-			{
-				throw new ArgumentException("Стоимость часа не может быть меньше одного", nameof(hourCost));
-			}
-
-			Random rnd = new Random();
-			id = rnd.Next(1,400000);
-			HourCost = hourCost;
+			Id = (int)(DateTime.Now.Ticks * 100) / 50;
 			Date = DateTime.Today;
-			Start = start;
-			End = start.AddHours(2);
+		}
 
+		public WorkDay(DateTime start, decimal hourCost) : this()
+		{
+			HourCost = hourCost;
+			Start = start;	
 		}
 
 		public override string ToString()
@@ -98,20 +199,21 @@ namespace TimeTracker.Models
 				   $"Общее время отдыха:{TotalRelax}; \n \n" +
 				   $"Всего заработано:{Earning:0.00}; \n";
 		}
+	}
 
+	/// <summary>
+	/// Дополнение для DateTime
+	/// </summary>
+	static class DateTimeHelper
+	{
 
-		public override bool Equals(object obj)
+		public static bool EqualDay(this DateTime NewDate, DateTime Date)
 		{
-
-			WorkDay workday = obj as WorkDay;
-			if (workday == null)
+			if(NewDate.Day == Date.Day && NewDate.Month == Date.Month && NewDate.Year == Date.Year)
 			{
-				return false;
+				return true;
 			}
-			else
-			{
-				return (Date == workday.Date) && (Start == workday.Start);
-			}
+			return false;
 		}
 	}
 

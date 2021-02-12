@@ -18,8 +18,8 @@
     <item name="android:timePickerDialogTheme">@style/AppCompatDialogStyle</item>
   </style>
 
-  
+
   <style name="AppCompatDialogStyle" parent="Theme.AppCompat.Light.Dialog">
-    <item name="colorAccent">#006FB8</item>
+    <item name="colorAccent">#2AABE4</item>
   </style>
 </resources>

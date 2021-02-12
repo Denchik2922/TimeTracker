@@ -3,15 +3,19 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
+using TimeTracker.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using TimeTracker.ExtraClass
 
 namespace TimeTracker.Pages
 {
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class TimerPage : ContentPage
 	{
+		/// <summary>
+		/// Стоимость часа.
+		/// </summary>
 		private int _hourCost;
 		public int HourCost
 		{
@@ -27,24 +31,53 @@ namespace TimeTracker.Pages
 			}
 		}
 
+		/// <summary>
+		/// Рабочии дни.
+		/// </summary>
+		public List<WorkDay> WorkDays { get; }
+
+		/// <summary>
+		/// Рабочий день.
+		/// </summary>
+		public WorkDay CurrentWorkDay { get; }
+
+		/// <summary>
+		/// Контроль данных.
+		/// </summary>
+		public SerializeData Saver { get; }
 
 		public TimerPage()
 		{
+
 			InitializeComponent();
 			BindingContext = this;
 			Slid.Value = 55;
+
 		}
 
+		/// <summary>
+		/// Начать рабочий день.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void StartDay(object sender, EventArgs e)
 		{
 			BtnAnimation(bnt_start, "start");
 		}
 
+		/// <summary>
+		/// Поставить паузу.
+		/// </summary>
 		private void PauseDay(object sender, EventArgs e)
 		{
 			BtnAnimation(bnt_pause, "pause");
 		}
 
+		/// <summary>
+		/// Завершить рабочий день.
+		/// </summary>
+		/// <param name="sender"></param>
+		/// <param name="e"></param>
 		private void StopDay(object sender, EventArgs e)
 		{
 			BtnAnimation(bnt_stop, "stop");

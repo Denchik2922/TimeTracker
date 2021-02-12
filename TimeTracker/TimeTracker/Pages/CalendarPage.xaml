@@ -31,9 +31,17 @@
                         </yummy:PancakeView.BackgroundGradientStops>
 
                         <StackLayout Orientation="Horizontal" Spacing="12" HorizontalOptions="Center">
-                            <ImageButton Source="PrevBtn.png" BackgroundColor="Transparent"/>
+
+
+                            <Path Fill="White"  Style="{StaticResource Angle_left}">
+
+                            </Path>
+                            
                             <Label Text="Декабрь 2021" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
-                            <ImageButton Source="NextBtn.png" BackgroundColor="Transparent"/>
+                            
+                            <Path Fill="White" Style="{StaticResource Angle_right}">
+
+                            </Path>
                         </StackLayout>
                     </yummy:PancakeView>
 
@@ -161,8 +169,51 @@
             </yummy:PancakeView>
 
 
-             
-            <ImageButton x:Name="btn_add" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" Clicked="Add_Work_Day" Source="add_work_day.png" Style="{StaticResource AddWorkDayStyle}"/>
+            <Frame x:Name="btn_add" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" IsVisible="True" Style="{StaticResource AddWorkDayStyle}" >
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Add_Work_Day"/>
+                </Frame.GestureRecognizers>
+                <Path Data="M22.2857 11.0218H14.5714V3.39133C14.5714 2.45501 13.8038 1.69568 12.8571
+                      1.69568H11.1429C10.1962 1.69568 9.42857 2.45501 9.42857 3.39133V11.0218H1.71429C0.767679
+                      11.0218 0 11.7811 0 12.7174V14.4131C0 15.3494 0.767679 16.1087 1.71429
+                      16.1087H9.42857V23.7392C9.42857 24.6755 10.1962 25.4348 11.1429 25.4348H12.8571C13.8038
+                      25.4348 14.5714 24.6755 14.5714 23.7392V16.1087H22.2857C23.2323 16.1087 24 15.3494 24
+                      14.4131V12.7174C24 11.7811 23.2323 11.0218 22.2857 11.0218Z" Fill="Black" HorizontalOptions="Center" VerticalOptions="Center" HeightRequest="20" WidthRequest="20" Aspect="Fill"/>
+                
+            </Frame>
+
+            <Frame x:Name="btn_delete" Grid.Row="0" Grid.RowSpan="2" Grid.Column="1" IsVisible="False" BackgroundColor="#FA0505" Style="{StaticResource AddWorkDayStyle}" >
+                <Frame.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="Delete_Work_Day"/>
+                </Frame.GestureRecognizers>
+                <Path Data="M12.916 20.3125H14.0726C14.226 20.3125 14.3731 20.2508
+                      14.4816 20.1409C14.59 20.031 14.651 19.882 14.651 19.7266V9.17969C14.651
+                      9.02429 14.59 8.87525 14.4816 8.76537C14.3731 8.65548 14.226 8.59375 14.0726
+                      8.59375H12.916C12.7626 8.59375 12.6155 8.65548 12.5071 8.76537C12.3986 8.87525
+                      12.3377 9.02429 12.3377 9.17969V19.7266C12.3377 19.882 12.3986 20.031 12.5071
+                      20.1409C12.6155 20.2508 12.7626 20.3125 12.916 20.3125ZM20.8198 3.90625H16.8481L15.2095
+                      1.1377C15.0039 0.790535 14.713 0.503267 14.3652 0.303885C14.0174 0.104503 13.6245
+                      -0.000192548 13.2249 2.65843e-07H8.366C7.96654 -2.38657e-05 7.57388 0.104752 7.22625
+                      0.304126C6.87863 0.5035 6.58788 0.790677 6.38233 1.1377L4.74277 3.90625H0.771104C0.566594
+                      3.90625 0.370461 3.98856 0.225851 4.13507C0.0812411 4.28159 0 4.4803 0 4.6875L0 5.46875C0
+                      5.67595 0.0812411 5.87466 0.225851 6.02118C0.370461 6.16769 0.566594 6.25 0.771104
+                      6.25H1.54221V22.6562C1.54221 23.2779 1.78593 23.874 2.21976 24.3135C2.65359 24.7531
+                      3.24199 25 3.85552 25H17.7354C18.3489 25 18.9373 24.7531 19.3711 24.3135C19.805 23.874
+                      20.0487 23.2779 20.0487 22.6562V6.25H20.8198C21.0243 6.25 21.2204 6.16769 21.3651
+                      6.02118C21.5097 5.87466 21.5909 5.67595 21.5909 5.46875V4.6875C21.5909 4.4803 21.5097
+                      4.28159 21.3651 4.13507C21.2204 3.98856 21.0243 3.90625 20.8198 3.90625ZM8.28166
+                      2.48584C8.30743 2.44238 8.34389 2.40644 8.38748 2.38153C8.43107 2.35663 8.48029 2.34361
+                      8.53034 2.34375H13.0606C13.1105 2.34369 13.1597 2.35675 13.2032 2.38165C13.2467 2.40655
+                      13.283 2.44245 13.3088 2.48584L14.1502 3.90625H7.44067L8.28166 2.48584ZM17.7354
+                      22.6562H3.85552V6.25H17.7354V22.6562ZM7.51826 20.3125H8.67492C8.8283 20.3125 8.9754
+                      20.2508 9.08386 20.1409C9.19232 20.031 9.25325 19.882 9.25325 19.7266V9.17969C9.25325
+                      9.02429 9.19232 8.87525 9.08386 8.76537C8.9754 8.65548 8.8283 8.59375 8.67492 8.59375H7.51826C7.36488
+                      8.59375 7.21778 8.65548 7.10932 8.76537C7.00087 8.87525 6.93994 9.02429 6.93994
+                      9.17969V19.7266C6.93994 19.882 7.00087 20.031 7.10932 20.1409C7.21778 20.2508 7.36488 20.3125
+                      7.51826 20.3125Z" Fill="White" HorizontalOptions="Center" VerticalOptions="Center"  Aspect="Fill"/>
+
+            </Frame>
+
         </Grid>
 
     </ContentPage.Content>

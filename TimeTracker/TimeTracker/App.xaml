@@ -37,14 +37,16 @@
         </Style>
 
 
-        <Style x:Key="AddWorkDayStyle" TargetType="ImageButton">
-
-            <Setter Property="Aspect" Value="AspectFit"/>
-           
+        <Style x:Key="AddWorkDayStyle" TargetType="Frame">
+            <Setter Property="HasShadow" Value="True"/>
+            <Setter Property="HeightRequest" Value="50"/>
+            <Setter Property="WidthRequest" Value="50"/>
+            <Setter Property="CornerRadius" Value="30"/>
             <Setter Property="HorizontalOptions" Value="End"/>
             <Setter Property="VerticalOptions" Value="Start"/>
-            <Setter Property="Margin" Value="0,20,30,0"/>
-            <Setter Property="BackgroundColor" Value="Transparent"/>
+            <Setter Property="Padding" Value="0"/>
+            <Setter Property="Margin" Value="0,25,30,0"/>
+            <Setter Property="BackgroundColor" Value="#FFCD24"/>
 
 
         </Style>
@@ -100,7 +102,7 @@
         <Style x:Key="BlockTimeStyle" TargetType="StackLayout">
             <Setter Property="Orientation" Value="Horizontal"/>
             
-            <Setter Property="Spacing" Value="5"/>
+            <Setter Property="Spacing" Value="15"/>
             <Setter Property="VerticalOptions" Value="Center"/>
             <Setter Property="HorizontalOptions" Value="Center"/>
         </Style>
