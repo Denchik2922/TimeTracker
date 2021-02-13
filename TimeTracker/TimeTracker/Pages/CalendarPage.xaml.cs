@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TimeTracker.ExtraClass;
 using TimeTracker.Models;
 using Xamarin.Forms;
 using Xamarin.Forms.Shapes;
@@ -13,6 +14,28 @@ namespace TimeTracker.Pages
 	[XamlCompilation(XamlCompilationOptions.Compile)]
 	public partial class CalendarPage : ContentPage
 	{
+		/// <summary>
+		/// Название файла для всех рабочих дней.
+		/// </summary>
+		private readonly string NAME_FILE_ALL_WORK_DAYS = "all_work_days";
+
+		/// <summary>
+		/// Дата.
+		/// </summary>
+		private DateTime date;
+		public DateTime Date
+		{
+			get => date;
+			set
+			{
+				if (value != date)
+				{
+					date = value;
+					OnPropertyChanged(nameof(Date));
+					SortWorkDays();
+				}
+			}
+		}
 
 		/// <summary>
 		/// Рабочии дни.
@@ -28,7 +51,49 @@ namespace TimeTracker.Pages
 			}
 		}
 
-		public List<WorkDay> worksDays;
+		/// <summary>
+		/// Часов за месяц.
+		/// </summary>
+		private string monthTime;
+		public string MonthTime
+		{
+			get => monthTime;
+			set
+			{
+				if (value != monthTime)
+				{
+					monthTime = value;
+					OnPropertyChanged(nameof(MonthTime));
+				}
+			}
+		}
+
+		/// <summary>
+		/// Заработано за месяц.
+		/// </summary>
+		private decimal monthEarn;
+		public decimal MonthEarn
+		{
+			get => monthEarn;
+			set
+			{
+				if (value != monthEarn)
+				{
+					monthEarn = value;
+					OnPropertyChanged(nameof(MonthEarn));
+				}
+			}
+		}
+
+		/// <summary>
+		/// Рабочии дни.
+		/// </summary>
+		private List<WorkDay> WorkDays { get; set; }
+
+		/// <summary>
+		/// Контроль данных.
+		/// </summary>
+		public SerializeData Saver { get; }
 
 		public CalendarPage()
 		{
@@ -36,40 +101,67 @@ namespace TimeTracker.Pages
 			BindingContext = this;
 			NavigationPage.SetHasNavigationBar(this, false);
 			BackgroundColor = Color.FromHex("#E5E5E5");
-
-			worksDays = new List<WorkDay>
-			{	
-				new WorkDay(DateTime.Now, 55),
-				new WorkDay(DateTime.Now, 55),
-				new WorkDay(DateTime.Now, 554),
-				new WorkDay(DateTime.Now, 55),
-				new WorkDay(DateTime.Now, 55),
-				new WorkDay(DateTime.Now, 55),
-				new WorkDay(DateTime.Now, 55),
-			};
-
-			MonthWorkDays = worksDays;
-
-
+			Saver = new SerializeData();
+			Date = DateTime.Today;
 		}
 
-		private void Add_Work_Day(object sender, EventArgs e)
+		/// <summary>
+		/// Добавить робочий день
+		/// </summary>
+		private async void Add_Work_Day(object sender, EventArgs e)
 		{
-			
+			await Navigation.PushAsync(new WorkDayPage());
 		}
 
-		private void Delete_Work_Day(object sender, EventArgs e)
+		/// <summary>
+		/// Удалить робочий день
+		/// </summary>
+		private async void Delete_Work_Day(object sender, EventArgs e)
 		{
-			
+			int count = WorkDays.Count(n => n.IsSelected);
+			if (count == 0)
+			{
+				await DisplayAlert("Внимание", "Вы должны выбрать елементы которые хотите удалить", "Ok");
+			}
+			else
+			{
+				bool IsDelete = await DisplayAlert("Внимание", $"Вы уверены что хотите удалить {(count == 1 ? "эту смену" : "эти смены")} ", "Да", "Отмена");
+				if (IsDelete)
+				{
+					var IsSelectedCount = WorkDays.RemoveAll(n => n.IsSelected);
+					Saver.Save(WorkDays, NAME_FILE_ALL_WORK_DAYS);
+					OnAppearing();
+				}
+
+			}
 		}
 
+		/// <summary>
+		/// Редактировать день.
+		/// </summary>
+		private async void EditDay(object sender, EventArgs e)
+		{
+			var pathSender = sender as Path;
+
+			if (pathSender.GestureRecognizers.Count > 0)
+			{
+				var gesture = (TapGestureRecognizer)pathSender.GestureRecognizers[0];
+				int dayId = (int)gesture.CommandParameter;
+				
+				await Navigation.PushAsync(new WorkDayPage(dayId));
+			}
+		}
+
+		/// <summary>
+		/// Выделить дни
+		/// </summary>
 		private void Select_Work_Day(object sender, ItemTappedEventArgs e)
 		{
 			WorkDay workDay = e.Item as WorkDay;
-			var work = worksDays.SingleOrDefault(w => w.id == workDay.id);
+			var work = WorkDays.SingleOrDefault(w => w.Id == workDay.Id);
 			work.IsSelected = !work.IsSelected;
 
-			int count = worksDays.Count(w => w.IsSelected);
+			int count = WorkDays.Count(w => w.IsSelected);
 
 			if (count <= 0)
 			{
@@ -82,28 +174,48 @@ namespace TimeTracker.Pages
 				btn_delete.IsVisible = true;
 			}
 
-			MonthWorkDays = worksDays.Select(w => w).ToList();
+			MonthWorkDays = WorkDays.Select(w => w).ToList();
 		}
+
+		/// <summary>
+		/// Сортировка данных.
+		/// </summary>
+		public void SortWorkDays()
+		{
+			MonthWorkDays = WorkDays?.Where(w => (w.Date.Month == Date.Month) && (w.Date.Year == Date.Year)).ToList() ?? new List<WorkDay>();
+			MonthEarn = MonthWorkDays.Sum(w => w.Earning);
+			TimeSpan time = new TimeSpan(MonthWorkDays.Sum(w => w.Total.Ticks));
+			MonthTime = string.Format("{0}:{1:mm}:{1:ss}", (int)time.TotalHours, time);
+
+
+		}
+
+		/// <summary>
+		/// Переход на предыдущий месяц.
+		/// </summary>
+		private void PrevMonth(object sender, EventArgs e)
+		{
+			Date = Date.AddMonths(-1);
+		}
+
+		/// <summary>
+		/// Переход на следущий месяц.
+		/// </summary>
+		private void NextMonth(object sender, EventArgs e)
+		{
+			Date = Date.AddMonths(1);
+		}
+
+
 
 		protected override void OnAppearing()
 		{
 			base.OnAppearing();
-			
+			WorkDays = Saver.Load<List<WorkDay>>(NAME_FILE_ALL_WORK_DAYS);
+			SortWorkDays();
 		}
 
 		
-
-		private async void EditDay(object sender, EventArgs e)
-		{	
-			var pathSender = sender as Path;
-
-			if (pathSender.GestureRecognizers.Count > 0)
-			{
-				var gesture = (TapGestureRecognizer)pathSender.GestureRecognizers[0];
-				int dayId = (int)gesture.CommandParameter;
-				WorkDay day = worksDays.SingleOrDefault(w => w.id == dayId);
-				await Navigation.PushAsync(new WorkDayPage(day));
-			}
-		}
+		
 	}
 }

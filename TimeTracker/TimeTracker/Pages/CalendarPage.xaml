@@ -34,13 +34,17 @@
 
 
                             <Path Fill="White"  Style="{StaticResource Angle_left}">
-
+                                <Path.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="PrevMonth"/>
+                                </Path.GestureRecognizers>
                             </Path>
-                            
-                            <Label Text="Декабрь 2021" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
+
+                            <Label Text="{Binding Date, StringFormat='{0:Y}' }" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
                             
                             <Path Fill="White" Style="{StaticResource Angle_right}">
-
+                                <Path.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="NextMonth"/>
+                                </Path.GestureRecognizers>
                             </Path>
                         </StackLayout>
                     </yummy:PancakeView>
@@ -93,7 +97,7 @@
 
                                         <Path HorizontalOptions="CenterAndExpand" VerticalOptions="Center" Fill="#2AABE4" IsVisible="{Binding IsSelected}" Data="M11.3572 3.64195L16.3578 8.64282L5.49911 19.502L1.04063 19.9942C0.443772 20.0602 -0.0605117 19.5555 0.00589283 18.9586L0.501974 14.4968L11.3572 3.64195ZM19.4507 2.89741L17.1027 0.549325C16.3703 -0.183108 15.1825 -0.183108 14.45 0.549325L12.2411 2.75835L17.2418 7.75921L19.4507 5.55019C20.1831 4.81736 20.1831 3.62985 19.4507 2.89741Z">
                                             <Path.GestureRecognizers>
-                                                <TapGestureRecognizer Tapped="EditDay" CommandParameter="{Binding id}"/>
+                                                <TapGestureRecognizer Tapped="EditDay" CommandParameter="{Binding Id}"/>
                                             </Path.GestureRecognizers>
                                         </Path>
                                         
@@ -135,7 +139,7 @@
                     <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
                     <Path Style="{StaticResource ClockPath}"/>
                     <StackLayout Spacing="0">
-                        <Label Text="43:54:21" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
+                        <Label Text="{Binding MonthTime}" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
                         <Label Text="общее время" TextColor="White" FontSize="13" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
                     </StackLayout>
                         
@@ -160,7 +164,7 @@
                     <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
                         <Path  Style="{StaticResource MoneyPath}"/>
                         <StackLayout Spacing="0">
-                            <Label Text="421.21 ₴" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
+                            <Label Text="{Binding MonthEarn, StringFormat='{0:F2} ₴'}" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
                             <Label Text="заработано" TextColor="White" FontSize="13" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
                             </StackLayout>
                     </StackLayout>

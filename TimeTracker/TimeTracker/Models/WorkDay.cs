@@ -166,6 +166,8 @@ namespace TimeTracker.Models
 				{
 					throw new ArgumentException("The cost of an hour cannot be less than one", nameof(_hourCost));
 				}
+
+				_hourCost = value;
 			} 
 		}
 
@@ -178,8 +180,9 @@ namespace TimeTracker.Models
 
 		public WorkDay()
 		{
-			Id = (int)(DateTime.Now.Ticks * 100) / 50;
+			Id = (int)(DateTime.Now.Ticks);
 			Date = DateTime.Today;
+			HourCost = 55;
 		}
 
 		public WorkDay(DateTime start, decimal hourCost) : this()

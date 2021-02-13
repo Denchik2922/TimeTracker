@@ -111,7 +111,7 @@
 
                         <Path HeightRequest="35" WidthRequest="35" Aspect="Uniform" VerticalOptions="CenterAndExpand" Fill="#2AABE4" Data="M28.4204 17.4223L4.84835 29.6152C2.93312 30.6054 0 29.6445 0 27.1954V2.81548C0 0.618305 2.72552 -0.70586 4.84835 0.395658L28.4204 12.5827C30.5232 13.6666 30.5299 16.3384 28.4204 17.4223Z"/>
                         <StackLayout Spacing="0">
-                            <TimePicker TextColor="#2AABE4"></TimePicker>
+                            <TimePicker Time="{Binding StartWork}" TextColor="#2AABE4"></TimePicker>
                             <Label FontSize="13" TextColor="#2AABE4" Style="{Binding SecondLabelStyle}" Text="начало работы"/>
                         </StackLayout>
                     </StackLayout>
@@ -126,7 +126,7 @@
                         <Path HeightRequest="35" WidthRequest="35" Aspect="Uniform" VerticalOptions="CenterAndExpand"   Fill="#2AABE4" Data="M3.21429 0H26.7857C28.5603 0 30 1.43973 30 3.21429V26.7857C30 28.5603 28.5603 30 26.7857 30H3.21429C1.43973 30 9.53674e-07 28.5603 9.53674e-07 26.7857V3.21429C9.53674e-07 1.43973 1.43973 0 3.21429 0Z"/>
                         
                         <StackLayout Spacing="0">
-                            <TimePicker TextColor="#2AABE4"></TimePicker>
+                            <TimePicker Time="{Binding EndWork}" TextColor="#2AABE4"></TimePicker>
                             <Label FontSize="13" TextColor="#2AABE4" Style="{Binding SecondLabelStyle}" Text="конец работы"/>
                         </StackLayout>
                     </StackLayout>
@@ -143,7 +143,7 @@
                     <StackLayout Style="{StaticResource BlockTimeStyle}">
                         <Path HeightRequest="35" WidthRequest="35" Aspect="Uniform" VerticalOptions="CenterAndExpand"   Fill="#2AABE4" Data="M9.64286 30H3.21429C1.43973 30 0 28.5603 0 26.7857V3.21429C0 1.43973 1.43973 0 3.21429 0H9.64286C11.4174 0 12.8571 1.43973 12.8571 3.21429V26.7857C12.8571 28.5603 11.4174 30 9.64286 30ZM30 26.7857V3.21429C30 1.43973 28.5603 0 26.7857 0H20.3571C18.5826 0 17.1429 1.43973 17.1429 3.21429V26.7857C17.1429 28.5603 18.5826 30 20.3571 30H26.7857C28.5603 30 30 28.5603 30 26.7857Z"/>
                         <StackLayout Spacing="0">
-                            <TimePicker TextColor="#2AABE4"></TimePicker>
+                            <TimePicker Time="{Binding StartRelax}" TextColor="#2AABE4"></TimePicker>
                             <Label FontSize="13" TextColor="#2AABE4" Style="{Binding SecondLabelStyle}" Text="начало отдыха"/>
                         </StackLayout>
                     </StackLayout>
@@ -157,7 +157,7 @@
                     <StackLayout Style="{StaticResource BlockTimeStyle}">
                         <Path HeightRequest="35" WidthRequest="35" Aspect="Uniform" VerticalOptions="CenterAndExpand"   Fill="#2AABE4" Data="M18.75 0H1.25C0.559635 0 0 0.62959 0 1.40625V2.34375C0 3.12041 0.559635 3.75 1.25 3.75C1.25 9.07998 3.90708 13.5782 7.54385 15C3.90708 16.4218 1.25 20.92 1.25 26.25C0.559635 26.25 0 26.8796 0 27.6562V28.5938C0 29.3704 0.559635 30 1.25 30H18.75C19.4404 30 20 29.3704 20 28.5938V27.6562C20 26.8796 19.4404 26.25 18.75 26.25C18.75 20.92 16.0929 16.4218 12.4561 15C16.0929 13.5782 18.75 9.07998 18.75 3.75C19.4404 3.75 20 3.12041 20 2.34375V1.40625C20 0.62959 19.4404 0 18.75 0ZM15.4167 26.25H4.58333C4.58333 21.7114 6.98979 17.8125 10 17.8125C13.0097 17.8125 15.4167 21.71 15.4167 26.25Z"/>
                         <StackLayout Spacing="0">
-                            <TimePicker TextColor="#2AABE4" ></TimePicker>
+                            <TimePicker Time="{Binding EndRelax}" TextColor="#2AABE4" ></TimePicker>
                             <Label FontSize="13" TextColor="#2AABE4" Style="{Binding SecondLabelStyle}" Text="конец отдыха"/>
                         </StackLayout>
                     </StackLayout>
@@ -175,18 +175,22 @@
                     <StackLayout  Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4">
                         <StackLayout Orientation="Horizontal" VerticalOptions="CenterAndExpand" HorizontalOptions="Center" Spacing="0" IsVisible="True">
                             <Path Style="{StaticResource Angle_left}">
-                                
+                                <Path.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="DecreaseValue"/>
+                                </Path.GestureRecognizers>
                             </Path>
-                            <Slider x:Name="Slid" Value="100"  Style="{StaticResource SliderStyle}" />
+                            <Slider x:Name="Slid" Value="100" ValueChanged="ChangeHourCost"  Style="{StaticResource SliderStyle}" />
                             <Path Style="{StaticResource Angle_right}">
-                                
+                                <Path.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="IncreaseValue"/>
+                                </Path.GestureRecognizers>
                             </Path>
 
 
                         </StackLayout>
 
                         <StackLayout Spacing="0" HorizontalOptions="Center">
-                            <Label Text="55₴" TextColor="#2AABE4" FontSize="18" Style="{StaticResource SecondLabelStyle}" />
+                            <Label Text="{Binding HourCost, StringFormat='{0} ₴'}" TextColor="#2AABE4" FontSize="18" Style="{StaticResource SecondLabelStyle}" />
                             <Label Text="стоимость часа" TextColor="#2AABE4" FontSize="13" Style="{StaticResource SecondLabelStyle}" />
                         </StackLayout>
 
@@ -211,7 +215,7 @@
                 <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
                     <Path Style="{StaticResource ClockPath}" />
                     <StackLayout Spacing="0">
-                        <Label Text="43:54:21" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
+                        <Label Text="{Binding TotalWork, StringFormat='{0:hh\\:mm\\:ss}'}" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
                         <Label Text="общее время" TextColor="White" FontSize="13" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
                     </StackLayout>
 
@@ -236,7 +240,7 @@
                     <StackLayout Spacing="10" HorizontalOptions="Center" VerticalOptions="Center">
                         <Path Style="{StaticResource MoneyPath}" />
                         <StackLayout Spacing="0">
-                            <Label Text="421.21 ₴" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
+                            <Label Text="{Binding Earning, StringFormat='{0:F2} ₴'}" TextColor="White" FontSize="20" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
                             <Label Text="заработано" TextColor="White" FontSize="13" VerticalOptions="Center" Style="{StaticResource SecondLabelStyle}"/>
                         </StackLayout>
                     </StackLayout>

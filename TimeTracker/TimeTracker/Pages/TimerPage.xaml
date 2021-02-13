@@ -41,32 +41,96 @@
             </Grid>
 
             <StackLayout Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="4" Grid.RowSpan="2">
-                <Label Text="00:00:00" Style="{StaticResource MainLabelStyle}"/>
+                <Label Text="{Binding TimeToday, StringFormat='{}{0:hh\\:mm\\:ss}'}" Style="{StaticResource MainLabelStyle}"/>
 
             </StackLayout>
-            <StackLayout Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" IsVisible="True" Padding="0,35,0,0">
-                <StackLayout VerticalOptions="Start" Spacing="0">
-                    <Label Text="00:00:00" TextColor="White" FontSize="15" Style="{StaticResource SecondLabelStyle}" />
+            <StackLayout Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="4" Padding="0,35,0,0">
+                <StackLayout x:Name="pause_block" VerticalOptions="Start" Spacing="0" IsVisible="false">
+                    <Label Text="{Binding RelaxToday, StringFormat='{}{0:hh\\:mm\\:ss}'}" TextColor="White" FontSize="15" Style="{StaticResource SecondLabelStyle}" />
                     <Label Text="пауза" TextColor="#9DCBE4" FontSize="13"  Style="{StaticResource SecondLabelStyle}" />
                 </StackLayout>
 
                 <StackLayout VerticalOptions="EndAndExpand" Spacing="0">
-                    <Label Text="123.32 ₴" TextColor="#FFCD24" FontSize="18" Style="{StaticResource SecondLabelStyle}" />
+                    <Label Text="{Binding EarnToday, StringFormat='{0:F2} ₴'}" TextColor="#FFCD24" FontSize="18" Style="{StaticResource SecondLabelStyle}" />
                     <Label Text="заработано" TextColor="#FFCD24" FontSize="13" Style="{StaticResource SecondLabelStyle}" />
                 </StackLayout>
 
             </StackLayout>
 
             <StackLayout Grid.Column="0" Grid.Row="2" Grid.ColumnSpan="4" Orientation="Horizontal" HorizontalOptions="Center" Spacing="15">
-               
-                    <ImageButton x:Name="bnt_start" Source="button_start.png" Clicked="StartDay" IsVisible="True" Style="{StaticResource ImageButtonStyle}" />
-                    <ImageButton x:Name="bnt_pause" Source="button_pause.png" Clicked="PauseDay" IsVisible="False" Style="{StaticResource ImageButtonStyle}" />
-                    <ImageButton x:Name="bnt_stop"  Source="button_stop.png"  Clicked="StopDay" IsVisible="False" Style="{StaticResource ImageButtonStyle}" />
-              
+
+                <ImageButton x:Name="btn_start" Clicked="StartDay" IsVisible="False" Style="{StaticResource ImageButtonStyle}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Source" Value="button_start.png" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Source" Value="tap_button_start.png" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </ImageButton>
+                
+                <ImageButton x:Name="btn_pause"  Clicked="PauseDay" IsVisible="False" Style="{StaticResource ImageButtonStyle}" >
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Source" Value="button_pause.png" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Source" Value="tap_button_pause.png" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </ImageButton>
+                
+                <ImageButton x:Name="btn_stop" Clicked="StopDay" IsVisible="False" Style="{StaticResource ImageButtonStyle}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Source" Value="button_stop.png" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Source" Value="tap_button_stop.png" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </ImageButton>
+
+                <ImageButton x:Name="btn_end_pause" Clicked="EndPause" IsVisible="False" Style="{StaticResource ImageButtonStyle}">
+                    <VisualStateManager.VisualStateGroups>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="Source" Value="button_pause.png" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Pressed">
+                                <VisualState.Setters>
+                                    <Setter Property="Source" Value="tap_button_pause.png" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateManager.VisualStateGroups>
+                </ImageButton>
+
             </StackLayout>
 
             <StackLayout  Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4">
-                <StackLayout Orientation="Horizontal" HorizontalOptions="Center" Spacing="0" IsVisible="True">
+                <StackLayout x:Name ="hour_cost_block" Orientation="Horizontal" HorizontalOptions="Center" Spacing="0" IsVisible="True">
                     <Path Style="{StaticResource Angle_left}">
                         <Path.GestureRecognizers>
                             <TapGestureRecognizer Tapped="DecreaseValue"/>
