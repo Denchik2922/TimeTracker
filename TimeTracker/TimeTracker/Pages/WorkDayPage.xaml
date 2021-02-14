@@ -35,10 +35,10 @@
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
                                 <ColumnDefinition Width="*"/>
-
+                                <ColumnDefinition Width="*"/>
                             </Grid.ColumnDefinitions>
 
-                            <Path VerticalOptions="Center" Margin="15,0,0,0" HorizontalOptions="StartAndExpand" Fill="White" Data="M14.3689 21.7334L13.13 22.8174C12.6055
+                            <Path  Grid.Column="0" VerticalOptions="Center" Margin="15,0,0,0" HorizontalOptions="Start" Fill="White" Data="M14.3689 21.7334L13.13 22.8174C12.6055
                                                                                                                    23.2764 11.7572 23.2764 11.2383 22.8174L0.390058 
                                                                                                                    13.3301C-0.134495 12.8711 -0.134495 12.1289 0.390058 
                                                                                                                    11.6748L11.2383 2.18262C11.7628 1.72363 12.611 1.72363
@@ -53,8 +53,20 @@
                             </Path>
 
 
-                            <Label Grid.Column="0" Grid.ColumnSpan="2" Text="2 декабря" TextColor="White" FontSize="20" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Style="{StaticResource SecondLabelStyle}"/>
+                            <Label x:Name="date" Grid.Column="0" Grid.ColumnSpan="3" TextColor="White" FontSize="20" VerticalOptions="Center" HorizontalOptions="CenterAndExpand" Style="{StaticResource SecondLabelStyle}"/>
 
+
+                            <Path Grid.Column="2" VerticalOptions="Center" Margin="0,0,15,0"  HorizontalOptions="End" Fill="White" Data="M9.17039 23.1716L0.395389
+                                  14.3966C-0.131796 13.8695 -0.131796 13.0147 0.395389
+                                  12.4874L2.30453 10.5783C2.83172 10.051 3.68654 10.051
+                                  4.21373 10.5783L10.125 16.4895L22.7862 3.82825C23.3134
+                                  3.30106 24.1683 3.30106 24.6954 3.82825L26.6046 5.73745C27.1318
+                                  6.26463 27.1318 7.1194 26.6046 7.64664L11.0796 23.1717C10.5523
+                                  23.6989 9.69757 23.6989 9.17039 23.1716V23.1716Z">
+                                <Path.GestureRecognizers>
+                                    <TapGestureRecognizer Tapped="SaveDay"/>
+                                </Path.GestureRecognizers>
+                            </Path>
                         </Grid>
                         
                         
@@ -94,7 +106,7 @@
                                                     30 6.5625ZM26.7857 26.8359V9.375H3.21429V26.8359C3.21429 27.0293 3.39509 27.1875 3.61607 27.1875H26.3839C26.6049
                                                     27.1875 26.7857 27.0293 26.7857 26.8359Z" />
 
-                        <DatePicker TextColor="#2AABE4"></DatePicker>
+                        <DatePicker Date="{Binding Date}" TextColor="#2AABE4"></DatePicker>
                     </StackLayout>
                 </yummy:PancakeView>
             </StackLayout>

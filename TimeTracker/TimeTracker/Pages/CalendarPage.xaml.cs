@@ -174,7 +174,7 @@ namespace TimeTracker.Pages
 				btn_delete.IsVisible = true;
 			}
 
-			MonthWorkDays = WorkDays.Select(w => w).ToList();
+			SortWorkDays();
 		}
 
 		/// <summary>
@@ -212,6 +212,8 @@ namespace TimeTracker.Pages
 		{
 			base.OnAppearing();
 			WorkDays = Saver.Load<List<WorkDay>>(NAME_FILE_ALL_WORK_DAYS);
+			btn_add.IsVisible = true;
+			btn_delete.IsVisible = false;
 			SortWorkDays();
 		}
 

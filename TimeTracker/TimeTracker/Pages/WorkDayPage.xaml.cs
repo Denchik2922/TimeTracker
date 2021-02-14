@@ -48,7 +48,9 @@ namespace TimeTracker.Pages
 			get => _date;
 			set
 			{
+				
 				_date = value;
+				date.Text = $"{ WorkDay.Date:d MMMM}";
 				OnPropertyChanged(nameof(Date));
 			}
 		}
@@ -62,7 +64,7 @@ namespace TimeTracker.Pages
 				
 				try
 				{
-					
+						
 					WorkDay.Start = WorkDay.Start.ChangeTime((int)value.Hours, (int)value.Minutes);
 					_startWork = value;
 
@@ -70,7 +72,7 @@ namespace TimeTracker.Pages
 				catch (ArgumentException)
 				{
 
-					ErrorMes("Начало смены болжно быть раньше ее окончания");
+					ErrorMes("Начало смены должно быть раньше ее окончания");
 				}
 				finally
 				{
@@ -97,7 +99,7 @@ namespace TimeTracker.Pages
 				}
 				catch (ArgumentException ex)
 				{
-					ErrorMes(ex.Message);
+					ErrorMes("Конец смены должен быть позже ее начала");
 				}
 				finally
 				{
@@ -122,7 +124,7 @@ namespace TimeTracker.Pages
 				}
 				catch (ArgumentException ex)
 				{
-					ErrorMes(ex.Message);
+					ErrorMes("Начало перерыва должно быть раньше его окончания");
 				}
 				finally
 				{
@@ -147,7 +149,7 @@ namespace TimeTracker.Pages
 				}
 				catch (ArgumentException ex)
 				{
-					ErrorMes(ex.Message);
+					ErrorMes("Конец перерыва должен быть позже его начала");
 				}
 				finally
 				{
@@ -170,7 +172,9 @@ namespace TimeTracker.Pages
 				if (value != _hourCost)
 				{
 					_hourCost = value;
+					WorkDay.HourCost = value;
 					OnPropertyChanged(nameof(HourCost));
+					OnPropertyChanged(nameof(Earning));
 				}
 
 			}
@@ -223,7 +227,8 @@ namespace TimeTracker.Pages
 
 		private void SetParameters()
 		{
-
+			
+			Date = WorkDay.Date;
 			StartWork = WorkDay.Start.TimeOfDay;
 			EndWork = WorkDay.End.TimeOfDay;
 			StartRelax = WorkDay.StartRelax.TimeOfDay;
@@ -270,6 +275,22 @@ namespace TimeTracker.Pages
 		/// </summary>
 		private async void BackButton(object sender, EventArgs e)
 		{
+			await Navigation.PopAsync();
+		}
+
+		/// <summary>
+		/// Сохранение и возврат на предыдущую страницу.
+		/// </summary>
+		private async void SaveDay(object sender, EventArgs e)
+		{
+			WorkDay.Date = Date;
+
+			if(!WorkDays.Exists(w => w.Id == WorkDay.Id))
+			{
+				WorkDays.Add(WorkDay);
+			}
+			Saver.Save(WorkDays, NAME_FILE_ALL_WORK_DAYS);
+
 			await Navigation.PopAsync();
 		}
 	}
